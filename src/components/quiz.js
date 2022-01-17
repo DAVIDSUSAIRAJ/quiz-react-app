@@ -109,14 +109,14 @@ function Quiz(params) {
                 </div>
                 <div className="score-announce">
                   <h4>Congrats!</h4>
-                  <h2>{progre} Score</h2>
+                  <h2>{progre}% Score</h2>
                   <div className="progress">
                     <div className="progressbar">
                       <div className="progress-dynamic" ref={progress}></div>
                     </div>
                     <div className="progress-percentage">
                       {" "}
-                      <span className="progre">{progre}</span>
+                      <span className="progre">{progre}%</span>
                     </div>
                   </div>
                   <h6 ref={level}>Low level</h6>
@@ -146,7 +146,8 @@ function Quiz(params) {
                 <div className="quiz-test--card--header">
                   <div className="quiz-count">
                     <p>
-                      Quiz: {questioncount}/{questionAnswer.length}
+                      Quiz: <span className="qstin-count">{questioncount}</span>
+                      /{questionAnswer.length}
                     </p>
                   </div>
                   <div className="quiz-logo">
@@ -157,9 +158,12 @@ function Quiz(params) {
                     ></img>
                   </div>
                   <div className="quiz-time" ref={quizTime}>
-                    <p>
-                      00:{addzero && "0"}
-                      <p className="counttime"> {timer}</p>
+                    <p className="countzero">
+                      <span> 00:</span>
+                    </p>
+                    <p className="counttime">
+                      {addzero && "0"}
+                      {timer}
                     </p>
                   </div>
                 </div>
