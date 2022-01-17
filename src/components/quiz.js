@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import questionAnswers from "./questionAnswer";
 import "../scss/quiz.scss";
 import quizLogo from "../images/Quiz-star.png";
@@ -12,6 +12,11 @@ function Quiz(params) {
   const [timer, setTimer] = useState(20);
   const [score, setScore] = useState(0);
   const [showmarks, setShowmarks] = useState(false);
+  const [addzero, setAddzero] = useState(false);
+  const progress = useRef();
+  const level = useRef();
+  const quizTime = useRef();
+  const progre = `${(score / questionAnswer.length) * 100}`;
 
   const nextquestion = (index) => {
     // START SCORE
@@ -35,6 +40,60 @@ function Quiz(params) {
     setTimer(20);
   };
 
+  const restart = () => {
+    setShowmarks(false);
+    setQuestionIndex(0);
+    setScore(0);
+    setQuestioncount(1);
+    setTimer(20);
+  };
+
+  useEffect(() => {
+    if (showmarks == false) {
+      const interval = setInterval(() => {
+        setTimer((time) => time - 1);
+      }, 1000);
+
+      if (timer == 0) {
+        nextquestion();
+        setAddzero(false);
+      }
+      if (timer == 9) {
+        setAddzero(true);
+      }
+      if (timer <= 5) {
+        quizTime.current.style.color = "rgb(246, 57, 57)";
+      } else if (timer <= 10) {
+        quizTime.current.style.color = "#f5b600";
+      } else if (timer <= 20) {
+        quizTime.current.style.color = "#1dbf73";
+      }
+      return () => clearInterval(interval);
+    } else if (showmarks == true) {
+      console.log("true");
+      console.log(progre);
+      if (progre > 60) {
+        progress.current.style.width = `${progre}%`;
+        console.log(progre);
+        progress.current.style.backgroundColor = "#1dbf73";
+        level.current.innerHTML = "High level..";
+        level.current.style.color = "#1dbf73";
+      } else if (progre > 20) {
+        progress.current.style.width = `${progre}%`;
+
+        progress.current.style.backgroundColor = "#d88419";
+        level.current.innerHTML = "Medium level..";
+        level.current.style.color = "#d88419";
+      } else if (progre <= 20) {
+        progress.current.style.width = `${progre}%`;
+
+        progress.current.style.backgroundColor = "rgb(246, 57, 57)";
+        level.current.innerHTML = "low level..";
+        level.current.style.color = "rgb(246, 57, 57)";
+      }
+    }
+  });
+
   return (
     <div>
       {/* quiz-app */}
@@ -50,28 +109,32 @@ function Quiz(params) {
                 </div>
                 <div className="score-announce">
                   <h4>Congrats!</h4>
-                  <h2>90% Score</h2>
+                  <h2>{progre} Score</h2>
                   <div className="progress">
                     <div className="progressbar">
-                      <div className="progress-dynamic"></div>
+                      <div className="progress-dynamic" ref={progress}></div>
                     </div>
                     <div className="progress-percentage">
                       {" "}
-                      <span> 90</span>%{" "}
+                      <span className="progre">{progre}</span>
                     </div>
                   </div>
-                  <h6>Medium level</h6>
+                  <h6 ref={level}>Low level</h6>
                   <p>Quiz completed successfully.</p>
                 </div>
                 <div className=" score-announce--detail">
                   <p>
-                    You attempt <span className="attend-qs">5 questions</span>{" "}
-                    and from that <span className="attend-ans">5 answer </span>
+                    You attempt{" "}
+                    <span className="attend-qs">
+                      {questionAnswer.length} questions
+                    </span>{" "}
+                    and from that{" "}
+                    <span className="attend-ans">{score} answer </span>
                     is correct.
                   </p>
                 </div>
                 <div className="restart">
-                  <button className="restart-btn">
+                  <button className="restart-btn" onClick={restart}>
                     <span className="restart-btn-text">Restart..</span>
                   </button>
                 </div>
@@ -93,8 +156,11 @@ function Quiz(params) {
                       className="quiz-logo--img"
                     ></img>
                   </div>
-                  <div className="quiz-time">
-                    <p>00:{timer}</p>
+                  <div className="quiz-time" ref={quizTime}>
+                    <p>
+                      00:{addzero && "0"}
+                      <p className="counttime"> {timer}</p>
+                    </p>
                   </div>
                 </div>
                 <div className="quiz-test--card--body">

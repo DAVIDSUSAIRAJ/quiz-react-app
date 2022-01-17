@@ -17,7 +17,7 @@ export default [
   {
     question: "what is bootstrap?",
     options: ["libray", "framework", "user interface", "none of these"],
-    answer: 2,
+    answer: 1,
   },
   {
     question: "what is scss?",
