@@ -6,4 +6,98 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+.App-header {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.quiz-start {
+  .about-quiz {
+    width: 380px;
+    height: 150px;
+    background-color: rgb(219, 219, 219);
+
+    box-shadow: 0px 0px 5px 0px gray;
+    // padding: 5px;
+    border-radius: 8px;
+    &-header {
+      padding: 10px;
+
+      box-shadow: 0px 0px 5px 0px gray;
+      border-radius: 8px;
+      h4 {
+        font-weight: 700;
+        color: rgb(31, 30, 30);
+      }
+    }
+    &-body {
+      font-size: 15px;
+      padding: 8px;
+      // box-shadow: 0px 0px 5px 0px gray;
+      p {
+        padding: 3px;
+        font-weight: 500;
+        color: rgb(65, 63, 63);
+      }
+      // background-color: yellow;
+    }
+  }
+  .quiz-start-btn {
+    text-align: center;
+    margin-top: 10px;
+
+    button {
+      background-color: green;
+      border: none;
+      outline: none;
+      padding: 10px;
+      color: white;
+      font-size: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  }
+}
+
+// MOBILE MODE IN MEDIA QUERY
+@media only screen and (max-width: 576px) {
+  .quiz-start {
+    .about-quiz {
+      width: 290px;
+      height: 250px;
+      box-shadow: 0px 0px 5px 0px gray !important;
+
+      &-header {
+        padding: 10px;
+
+        h4 {
+          padding: 10px;
+        }
+      }
+      &-body {
+        padding: 10px;
+
+        p {
+          padding: 3px;
+        }
+      }
+    }
+    .quiz-start-btn {
+      button {
+        background-color: rgb(15, 105, 3) !important;
+
+        padding: 10px;
+
+        margin-top: 50px;
+      }
+    }
+  }
+}
+
+// END MOBILE MODE IN MEDIA QUERY

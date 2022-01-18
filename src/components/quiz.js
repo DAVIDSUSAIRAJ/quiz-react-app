@@ -17,7 +17,7 @@ function Quiz(params) {
   const level = useRef();
   const quizTime = useRef();
   const progre = `${(score / questionAnswer.length) * 100}`;
-
+  // NEXT QUESTION WHILE ONCLICK WITH CONDITONS CHECK
   const nextquestion = (index) => {
     // START SCORE
     if (index === currentquestion.answer) {
@@ -38,16 +38,20 @@ function Quiz(params) {
       setQuestioncount(questioncount + 1);
     }
     setTimer(20);
+    setAddzero(false);
   };
-
+  // END NEXT QUESTION ONCLICK WITH CONDITONS CHECK
+  // START RESTART BEHAVIOUR
   const restart = () => {
     setShowmarks(false);
     setQuestionIndex(0);
     setScore(0);
     setQuestioncount(1);
     setTimer(20);
+    setAddzero(false);
   };
-
+  // END RESTART BEHAVIOUR
+  //AUTOMATIC USEEFFECT CALLED IN DYNAMIC COUNTER(TIME)
   useEffect(() => {
     if (showmarks == false) {
       const interval = setInterval(() => {
@@ -93,7 +97,7 @@ function Quiz(params) {
       }
     }
   });
-
+  // END AUTOMATIC USEEFFECT CALLED IN DYNAMIC COUTER(TIME)
   return (
     <div>
       {/* quiz-app */}
